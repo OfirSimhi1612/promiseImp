@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type='text' id='input'>
+    <p id='testSheet'></p>
+    <button id='button'>go</button>
+
+    <script>
+        const text = document.querySelector('#text');
+        const testSheet = document.querySelector('#testSheet');
+        const button = document.querySelector('#button');
+
+        button.addEventListener('click', () => {
+            testSheet.innerText = new Promise((resolve,  reject) => {
+                setTimeout(() => resolve(3), 3000)
+            })
+        })
+
+
+2
+        class Promise {
+
+        constructor(cb){
+        this.state = 'pending' // todo: make a state object with relevant info.
+        try{
+            this.resolvedData = cb()
+            this.state = 'fullfiled' // todo: make a state object with relevant info.
+        } catch (error) {
+            this.rejectedData = error
+            this.state = 'rejected' // todo: make a state object with relevant info.
+        }
+        }
+
+        then(thenFunc){
+        const dataAfterThen = thenFunc(resolvedData)
+        return new Promise((resolve, reject) => {
+            try {
+            resovle(dataAfterThen);
+            } catch (error) {
+            reject(error);
+            } 
+        })
+        }
+
+        catch(catchFunc){
+        catchFunc(rejectedData)
+        }
+
+        }
+    </script>
+</body>
+</html>
